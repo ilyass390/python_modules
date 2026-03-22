@@ -5,14 +5,14 @@ from ex2.Magical import Magical
 
 class EliteCard(Card, Combatable, Magical):
     def __init__(self, name: str, cost: int, rarity: str,
-                 attack: int, mana: int):
+                 power: int, mana: int):
         super().__init__(name, cost, rarity)
-        self._attack = attack
+        self._power = power
         self._mana = mana
 
     def get_card_info(self) -> dict:
         info = super().get_card_info()
-        info.update({"type": "Elite", "attack": self._attack,
+        info.update({"type": "Elite", "attack": self._power,
                      "mana": self._mana})
         return info
 
@@ -27,13 +27,13 @@ class EliteCard(Card, Combatable, Magical):
         return {
             "attacker": self.name,
             "target": target,
-            "damage": self._attack,
+            "damage": self._power,
             "combat_type": "melee"
         }
 
     def defend(self, incoming_damage: int) -> dict:
-        blocked = self._attack // 2
-        taken = max(0, incoming_damage - blocked)
+        blocked = incoming_damage // 2
+        taken = incoming_damage - blocked
         return {
             "defender": self.name,
             "damage_taken": taken,
@@ -44,7 +44,7 @@ class EliteCard(Card, Combatable, Magical):
     def get_combat_stats(self) -> dict:
         return {
             "name": self.name,
-            "attack": self._attack,
+            "attack": self._power,
             "combat_type": "melee"
         }
 

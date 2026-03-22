@@ -5,9 +5,9 @@ from ex4.Rankable import Rankable
 
 class TournamentCard(Card, Combatable, Rankable):
     def __init__(self, name: str, cost: int, rarity: str,
-                 attack: int, health: int, rating: int = 1200):
+                 power: int, health: int, rating: int = 1200):
         super().__init__(name, cost, rarity)
-        self._attack = attack
+        self._power = power
         self._health = health
         self._rating = rating
         self._wins = 0
@@ -16,7 +16,7 @@ class TournamentCard(Card, Combatable, Rankable):
     def get_card_info(self) -> dict:
         info = super().get_card_info()
         info.update({"type": "Tournament",
-                     "attack": self._attack, "health": self._health})
+                     "attack": self._power, "health": self._health})
         return info
 
     def play(self, game_state: dict) -> dict:
@@ -30,24 +30,25 @@ class TournamentCard(Card, Combatable, Rankable):
         return {
             "attacker": self.name,
             "target": target,
-            "damage": self._attack,
+            "damage": self._power,
             "combat_type": "tournament"
         }
 
     def defend(self, incoming_damage: int) -> dict:
-        blocked = self._attack // 2
-        taken = max(0, incoming_damage - blocked)
+        blocked = incoming_damage // 2
+        taken = incoming_damage - blocked
+        self._health -= taken
         return {
             "defender": self.name,
             "damage_taken": taken,
             "damage_blocked": blocked,
-            "still_alive": self._health > taken
+            "still_alive": self._health > 0
         }
 
     def get_combat_stats(self) -> dict:
         return {
             "name": self.name,
-            "attack": self._attack,
+            "attack": self._power,
             "health": self._health
         }
 

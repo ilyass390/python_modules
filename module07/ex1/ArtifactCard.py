@@ -7,6 +7,7 @@ class ArtifactCard(Card):
         super().__init__(name, cost, rarity)
         self.durability = durability
         self.effect = effect
+        self._in_play = False
 
     def get_card_info(self) -> dict:
         info = super().get_card_info()
@@ -18,6 +19,13 @@ class ArtifactCard(Card):
         return info
 
     def play(self, game_state: dict) -> dict:
+        if self._in_play:
+            return {
+                "card_played": self.name,
+                "mana_used": 0,
+                "effect": "Artifact already in play"
+            }
+        self._in_play = True
         return {
             "card_played": self.name,
             "mana_used": self.cost,
@@ -25,8 +33,22 @@ class ArtifactCard(Card):
         }
 
     def activate_ability(self) -> dict:
+        if not self._in_play:
+            return {
+                "artifact": self.name,
+                "result": "Artifact not in play yet",
+                "active": False
+            }
+        if self.durability <= 0:
+            return {
+                "artifact": self.name,
+                "result": "Artifact destroyed - no durability remaining",
+                "active": False
+            }
+        self.durability -= 1
         return {
             "artifact": self.name,
             "ability": self.effect,
-            "durability_remaining": self.durability
+            "durability_remaining": self.durability,
+            "active": True
         }

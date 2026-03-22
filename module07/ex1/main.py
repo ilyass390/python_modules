@@ -7,9 +7,9 @@ print("=== DataDeck Deck Builder ===")
 print("Building deck with different card types...")
 
 deck = Deck()
-deck.add_card(SpellCard("Lightning Bolt", 3, "Common", "damage"))
-deck.add_card(ArtifactCard("Mana Crystal", 4, "Rare", 5, "+1 mana per turn"))
 deck.add_card(CreatureCard("Fire Dragon", 5, "Legendary", 7, 5))
+deck.add_card(ArtifactCard("Mana Crystal", 4, "Rare", 5, "+1 mana per turn"))
+deck.add_card(SpellCard("Lightning Bolt", 3, "Common", "damage"))
 
 print(f"Deck stats: {deck.get_deck_stats()}")
 

@@ -1,7 +1,7 @@
 from abc import ABC
 
 class Card(ABC):
-    def  __init__(self, name: str, cost: int, rarity: str):
+    def __init__(self, name: str, cost: int, rarity: str):
         self.name = name
         self.cost = cost
         self.rarity = rarity
@@ -14,7 +14,4 @@ class Card(ABC):
         return {"name": self.name, "cost": self.cost,"rarity": self.rarity}
     
     def is_playable(self, available_mana: int) -> bool:
-        if available_mana >= self.cost:
-            return True
-        else:
-            return False
+        return available_mana >= self.cost

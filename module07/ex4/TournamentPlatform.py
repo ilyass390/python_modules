@@ -7,14 +7,23 @@ class TournamentPlatform:
         self._matches = []
 
     def register_card(self, card: TournamentCard) -> str:
-        card_id = card.name.lower().replace(" ", "_") + "_001"
+        card_id = (card.name.lower().replace(" ", "_")
+                   + f"_{len(self._cards) + 1:03d}")
         self._cards[card_id] = card
         return card_id
+
+    def get_card_power(self, item) -> int:
+        stats = item[1].get_combat_stats()
+        return stats["attack"] + stats["health"]
 
     def create_match(self, card1_id: str, card2_id: str) -> dict:
         card1 = self._cards[card1_id]
         card2 = self._cards[card2_id]
-        if card1._attack >= card2._attack:
+        stats1 = card1.get_combat_stats()
+        stats2 = card2.get_combat_stats()
+        power1 = stats1["attack"] + stats1["health"]
+        power2 = stats2["attack"] + stats2["health"]
+        if power1 >= power2:
             winner, loser = card1, card2
             winner_id, loser_id = card1_id, card2_id
         else:
@@ -31,10 +40,13 @@ class TournamentPlatform:
         self._matches.append(result)
         return result
 
+    def get_card_rating(self, item) -> int:
+        return item[1].calculate_rating()
+
     def get_leaderboard(self) -> list:
         sorted_cards = sorted(
             self._cards.items(),
-            key=lambda x: x[1].calculate_rating(),
+            key=self.get_card_rating,
             reverse=True
         )
         leaderboard = []
@@ -51,7 +63,7 @@ class TournamentPlatform:
     def generate_tournament_report(self) -> dict:
         total = len(self._cards)
         ratings = [c.calculate_rating() for c in self._cards.values()]
-        avg = sum(ratings) // len(ratings) if ratings else 0
+        avg = round(sum(ratings) / len(ratings)) if ratings else 0
         return {
             "total_cards": total,
             "matches_played": len(self._matches),

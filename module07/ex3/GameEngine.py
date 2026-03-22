@@ -18,12 +18,16 @@ class GameEngine:
         self._hand = [
             factory.create_creature(),
             factory.create_creature("goblin"),
-            factory.create_spell()
+            factory.create_spell("lightning")
         ]
         self._cards_created = len(self._hand)
 
+    def get_hand(self) -> list:
+        return self._hand
+
     def simulate_turn(self) -> dict:
-        result = self._strategy.execute_turn(self._hand, [])
+        enemy_battlefield = ["Enemy Goblin", "Enemy Dragon"]
+        result = self._strategy.execute_turn(self._hand, enemy_battlefield)
         self._turns += 1
         self._total_damage += result.get("damage_dealt", 0)
         return {

@@ -22,18 +22,25 @@ class Deck:
     def draw_card(self) -> Card:
         if not self._cards:
             raise IndexError("Deck is empty")
-        return self._cards.pop(0)
+        return self._cards.pop()
 
     def get_deck_stats(self) -> dict:
-        creatures = sum(1 for c in self._cards
-                        if c.get_card_info().get("type") == "Creature")
-        spells = sum(1 for c in self._cards
-                     if c.get_card_info().get("type") == "Spell")
-        artifacts = sum(1 for c in self._cards
-                        if c.get_card_info().get("type") == "Artifact")
+        creatures = 0
+        spells = 0
+        artifacts = 0
+        total_cost = 0
+        for card in self._cards:
+            info = card.get_card_info()
+            card_type = info.get("type")
+            if card_type == "Creature":
+                creatures += 1
+            elif card_type == "Spell":
+                spells += 1
+            elif card_type == "Artifact":
+                artifacts += 1
+            total_cost += card.cost
         total = len(self._cards)
-        avg_cost = (sum(c.cost for c in self._cards) / total
-                    if total > 0 else 0.0)
+        avg_cost = total_cost / total if total > 0 else 0.0
         return {
             "total_cards": total,
             "creatures": creatures,

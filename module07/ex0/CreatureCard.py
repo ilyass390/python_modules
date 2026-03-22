@@ -1,4 +1,4 @@
-from .Card import Card
+from ex0.Card import Card
 
 class CreatureCard(Card):
     def __init__(self, name: str, cost: int, rarity: str, attack: int, health: int):
@@ -12,9 +12,9 @@ class CreatureCard(Card):
     @attack.setter
     def attack(self, attack):
         if not isinstance(attack, int):
-            raise TypeError("attack must be an integer")
+            raise TypeError("Attack must be an integer")
         if attack <= 0:
-            raise ValueError("Attack nust be non-negative")
+            raise ValueError("Attack must be non-negative")
         self._attack = attack
     
     @property
@@ -23,12 +23,12 @@ class CreatureCard(Card):
     @health.setter
     def health(self, health):
         if not isinstance(health, int):
-            raise TypeError("health must be an integer")
+            raise TypeError("Health must be an integer")
         if health <= 0:
-            raise ValueError("health nust be non-negative")
+            raise ValueError("Health must be non-negative")
         self._health = health
 
-    def get_card_info(self):
+    def get_card_info(self) -> dict:
         info = super().get_card_info()
         info.update({"type": "Creature", "attack": self.attack, "health": self.health})
         return info

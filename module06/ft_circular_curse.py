@@ -5,11 +5,20 @@ print("=== Circular Curse Breaking ===")
 
 print("\nTesting ingredient validation:")
 print(f'validate_ingredients("fire air"): {validate_ingredients("fire air")}')
-print(f'validate_ingredients("dragon scales"): {validate_ingredients("dragon scales")}')
+print(
+    f'validate_ingredients("dragon scales"): '
+    f'{validate_ingredients("dragon scales")}'
+     )
 
 print("\nTesting spell recording with validation:")
-print(f'record_spell("Fireball", "fire air"): {record_spell("Fireball", "fire air")}')
-print(f'record_spell("Dark Magic", "shadow"): {record_spell("Dark Magic", "shadow")}')
+print(
+    f'record_spell("Fireball", "fire air"): '
+    f'{record_spell("Fireball", "fire air")}'
+    )
+print(
+    f'record_spell("Dark Magic", "shadow"): '
+    f'{record_spell("Dark Magic", "shadow")}'
+    )
 
 print("\nTesting late import technique:")
 print(f'record_spell("Lightning", "air"): {record_spell("Lightning", "air")}')

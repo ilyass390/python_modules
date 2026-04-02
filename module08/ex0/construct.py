@@ -2,9 +2,7 @@ import sys
 import os
 import site
 
-
 def is_in_virtual_env() -> bool:
-    # Detect if the script is running inside a virtual environment.
     # sys.prefix points to the venv root when a venv is active.
     # sys.base_prefix always points to the real system Python.
     # If they differ, we are inside a venv.
@@ -64,26 +62,6 @@ def display_outside_venv() -> None:
     print("  matrix_env\\Scripts\\activate     # On Windows")
     print()
     print("Then run this program again.")
-
-def display_inside_venv() -> None:
-    # Gather all environment info using our utility functions
-    venv_name = get_venv_name()
-    venv_path = get_venv_path()
-    site_packages = get_site_packages_path()
-
-    print("MATRIX STATUS: Welcome to the construct")
-    print()
-    print(f"Current Python: {sys.executable}")
-    print(f"Virtual Environment: {venv_name}")
-    print(f"Environment Path: {venv_path}")
-    print()
-    print("SUCCESS: You're in an isolated environment!")
-    print("Safe to install packages without affecting")
-    print("the global system.")
-    print()
-    print("Package installation path:")
-    print(f"  {site_packages}")
-
 
 def display_inside_venv() -> None:
     # Gather all environment info using our utility functions

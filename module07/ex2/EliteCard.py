@@ -5,7 +5,7 @@ from ex2.Magical import Magical
 
 class EliteCard(Card, Combatable, Magical):
     def __init__(self, name: str, cost: int, rarity: str,
-                 power: int, mana: int):
+                 power: int, mana: int) -> None:
         super().__init__(name, cost, rarity)
         self._power = power
         self._mana = mana

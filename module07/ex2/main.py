@@ -1,7 +1,7 @@
 from ex2.EliteCard import EliteCard
 
 print("=== DataDeck Ability System ===")
-
+print()
 warrior = EliteCard("Arcane Warrior", 6, "Legendary", 5, 4)
 
 print("EliteCard capabilities:")

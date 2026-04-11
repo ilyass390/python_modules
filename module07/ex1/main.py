@@ -4,6 +4,7 @@ from ex1.ArtifactCard import ArtifactCard
 from ex1.Deck import Deck
 
 print("=== DataDeck Deck Builder ===")
+print()
 print("Building deck with different card types...")
 
 deck = Deck()

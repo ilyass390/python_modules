@@ -2,7 +2,9 @@ from ex0.Card import Card
 
 
 class SpellCard(Card):
-    def __init__(self, name: str, cost: int, rarity: str, effect_type: str):
+    def __init__(
+                 self, name: str, cost: int, rarity: str, effect_type: str
+                ) -> None:
         super().__init__(name, cost, rarity)
         self.effect_type = effect_type
         self._used = False
@@ -22,7 +24,9 @@ class SpellCard(Card):
             "buff": "Grant +2 attack to target",
             "debuff": "Reduce target attack by 2"
         }
-        effect = effects.get(self.effect_type, f"Apply {self.effect_type} effect")
+        effect = effects.get(
+                        self.effect_type, f"Apply {self.effect_type} effect"
+                        )
         return {
             "card_played": self.name,
             "mana_used": self.cost,
@@ -42,7 +46,7 @@ class SpellCard(Card):
                 "result": "Spell already resolved - one time use only",
                 "resolved": False
             }
-        self._resolved = True  # mark as resolved, blocks future calls
+        self._resolved = True
         effects = {
             "damage": f"Dealt 3 damage to {targets}",
             "heal": f"Restored 3 health to {targets}",
@@ -58,6 +62,7 @@ class SpellCard(Card):
             ),
             "resolved": True
         }
+
     def get_card_info(self) -> dict:
         info = super().get_card_info()
         info.update({"type": "Spell", "effect_type": self.effect_type})

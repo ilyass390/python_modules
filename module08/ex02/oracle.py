@@ -33,6 +33,7 @@ def load_config(override: bool) -> None:
         # Mask API_KEY to avoid exposing secrets in output
         raw_key = config.get('API_KEY', 'NOT SET')
         masked_key = raw_key[:4] + "****" if raw_key != "NOT SET" else raw_key
+        MATRIX_MODE = config.get('MATRIX_MODE', 'NOT SET')
 
         print("\nConfiguration loaded:")
         print(f"  Mode:         {config.get('MATRIX_MODE', 'NOT SET')}")
@@ -74,8 +75,10 @@ def load_config(override: bool) -> None:
         print(f"Error: {e.__class__.__name__} - {e}")
         sys.exit(1)
 
-
+# API_KEY="dfghjnk"
 if __name__ == "__main__":
     # override=True means .env vars take priority over system env
-    dotenv.load_dotenv(override=True)
-    load_config(True)
+    override = True
+    dotenv.load_dotenv(override=override)
+    load_config(override)
+    

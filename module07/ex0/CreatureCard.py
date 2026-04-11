@@ -1,36 +1,28 @@
 from ex0.Card import Card
 
+
 class CreatureCard(Card):
-    def __init__(self, name: str, cost: int, rarity: str, attack: int, health: int):
+    def __init__(self, name: str, cost: int, rarity: str,
+                 attack: int, health: int):
         super().__init__(name, cost, rarity)
         self.attack = attack
         self.health = health
-
-    @property
-    def attack(self):
-        return self._attack
-    @attack.setter
-    def attack(self, attack):
-        if not isinstance(attack, int):
-            raise TypeError("Attack must be an integer")
-        if attack <= 0:
-            raise ValueError("Attack must be non-negative")
-        self._attack = attack
-    
-    @property
-    def health(self):
-        return self._health
-    @health.setter
-    def health(self, health):
-        if not isinstance(health, int):
-            raise TypeError("Health must be an integer")
-        if health <= 0:
-            raise ValueError("Health must be non-negative")
-        self._health = health
+        if not isinstance(self.attack, int):
+            raise TypeError("attack must be integers")
+        if not isinstance(self.health, int):
+            raise TypeError("health must be integers")
+        if self.attack <= 0:
+            raise ValueError("attack must be positive integers")
+        if self.health <= 0:
+            raise ValueError("health must be positive integers")
 
     def get_card_info(self) -> dict:
         info = super().get_card_info()
-        info.update({"type": "Creature", "attack": self.attack, "health": self.health})
+        info.update({
+            "type": "Creature",
+            "attack": self.attack,
+            "health": self.health
+        })
         return info
 
     def play(self, game_state: dict) -> dict:

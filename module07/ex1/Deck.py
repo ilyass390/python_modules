@@ -3,7 +3,7 @@ from ex0.Card import Card
 
 
 class Deck:
-    def __init__(self):
+    def __init__(self) -> None:
         self._cards = []
 
     def add_card(self, card: Card) -> None:

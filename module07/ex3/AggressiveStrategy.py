@@ -16,7 +16,6 @@ class AggressiveStrategy(GameStrategy):
         return creature_targets + player_targets
 
     def execute_turn(self, hand: list, battlefield: list) -> dict:
-        # separate creatures and non-creatures
         creatures = []
         others = []
         for card in hand:
@@ -26,11 +25,9 @@ class AggressiveStrategy(GameStrategy):
             else:
                 others.append(card)
 
-        # sort creatures by cost — cheapest first for board presence
         creatures.sort(key=self.get_card_cost)
         others.sort(key=self.get_card_cost)
 
-        # play creatures first then others
         sorted_hand = creatures + others
 
         mana = self.MAX_MANA
@@ -40,7 +37,6 @@ class AggressiveStrategy(GameStrategy):
                 played_cards.append(card)
                 mana -= card.cost
 
-        # target enemy creatures first then player
         targets = self.prioritize_targets(
             battlefield + ["Enemy Player"]
         )

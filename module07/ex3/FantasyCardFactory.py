@@ -5,7 +5,7 @@ from ex3.CardFactory import CardFactory
 
 
 class FantasyCardFactory(CardFactory):
-    def __init__(self):
+    def __init__(self) -> None:
         self._creature_types = ["dragon", "goblin"]
         self._spell_types = ["fireball", "ice", "lightning"]
         self._artifact_types = ["ring", "staff", "crystal"]

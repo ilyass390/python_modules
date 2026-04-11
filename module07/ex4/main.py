@@ -2,6 +2,7 @@ from ex4.TournamentCard import TournamentCard
 from ex4.TournamentPlatform import TournamentPlatform
 
 print("=== DataDeck Tournament Platform ===")
+print()
 print("Registering Tournament Cards...")
 
 dragon = TournamentCard("Fire Dragon", 5, "Legendary", 7, 5, 1200)
@@ -32,7 +33,7 @@ for entry in platform.get_leaderboard():
     print(f"{entry['rank']}. {entry['name']} - "
           f"Rating: {entry['rating']} ({entry['record']})")
 
-print(f"\nPlatform Report:")
+print("\nPlatform Report:")
 print(platform.generate_tournament_report())
 
 print("\n=== Tournament Platform Successfully Deployed! ===")
